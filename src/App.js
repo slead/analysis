@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  componentDidMount(){
+    let data = {
+      f: 'json'
+    }
+
+    let axiosConfig = {
+      headers: {
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+      }
+    };
+
+    let url = 'https://analysis3.arcgis.com/arcgis/rest/services/tasks/GPServer/DeriveNewLocations/submitJob'
+
+    axios.post(url, data, axiosConfig)
+      .then((res) => {
+        console.log("RESPONSE RECEIVED: ", res);
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+      })
+
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <p>Spatial Analysis test</p>
+      </div>
+    )
+    }
+
 }
 
 export default App;
